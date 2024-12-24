@@ -6,6 +6,7 @@ class EncodedJointActuator
     int sensor_pin;
     int actuator_a_pin;
     int actuator_b_pin;
+    int modulator_pin;
     double encoder_value;
     double previous_encoder_value;
     double target_position;
@@ -18,7 +19,7 @@ class EncodedJointActuator
     PID velocity_pid;
 
   public:
-    EncodedJointActuator(int s_pin, int pin_a, int pin_b,
+    EncodedJointActuator(int s_pin, int pin_a, int pin_b, int pin_m,
                         double pkp, double ikp, double dkp,
                         double pkv, double ikv, double dkv):
       position_pid(&encoder_value, &output_position_delta, &target_position, pkp,ikp, dkp, DIRECT),
@@ -27,6 +28,7 @@ class EncodedJointActuator
       sensor_pin = s_pin;
       actuator_a_pin = pin_a;
       actuator_b_pin = pin_b;
+      modulator_pin = m_pin;
     }
     int get_pos(){
       return encoder_value;
@@ -47,6 +49,7 @@ class EncodedJointActuator
 
       pinMode(actuator_a_pin, OUTPUT);
       pinMode(actuator_b_pin, OUTPUT);
+      pinMode(modulator_pin, OUTPUT);
     }
     void init_targets(double init_targ_pos, double init_targ_vel)
     {
@@ -82,12 +85,15 @@ class EncodedJointActuator
       if(output_position_delta > 0){
           digitalWrite(actuator_a_pin, LOW);
           digitalWrite(actuator_b_pin, HIGH);
+          analogWrite(modulator_pin, output_position_magnitude)
       } else if(output_position_delta < 0){ 
           digitalWrite(actuator_a_pin, HIGH);
           digitalWrite(actuator_b_pin, LOW);
+          analogWrite(modulator_pin, output_position_magnitude)
       } else {
           digitalWrite(actuator_a_pin, LOW);
           digitalWrite(actuator_b_pin, LOW);
+          digitalWrite(modulator_pin, LOW)
       }
       if(previous_encoder_value != encoder_value){
         encoder_changed = true;
@@ -96,13 +102,10 @@ class EncodedJointActuator
     }
 };
 
-
 EncodedJointActuator shoulder_pitch(
-  A0, 2, 3, 
+  A0, 22, 23, 2, 
   2.80, 0.5, 0.00, 
   1.0, 0.0, 0.0);
-
-
 
 int test;
 const long interval  = 20;
