@@ -1,0 +1,164 @@
+ffprobe version 6.1.1 Copyright (c) 2007-2023 the FFmpeg developers
+  built with Apple clang version 14.0.0 (clang-1400.0.29.202)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/6.1.1_1 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/Volumes/mastering/Echo_Grasshopper/episode_E0003/Echo-E0003_OV_V30443646_FP_DPT_ProHQ_HD-SDR_23_ENG-239_ENG-24CH_Rev4A_OPS2060O1/Echo-E0003_OV_V30443646_FP_DPT_ProHQ_HD-SDR_23_ENG-239_ENG-24CH_Rev4A_OPS2060O1.mov':
+  Metadata:
+    major_brand     : qt  
+    minor_version   : 538315008
+    compatible_brands: qt  
+    creation_time   : 2023-12-15T12:26:21.000000Z
+    com.apple.quicktime.player.version: 7.7.9 (Dev)
+    com.apple.quicktime.version: 7.7.9 (1680.95.84)
+    com.apple.quicktime.player.movie.audio.gain: 1.000000
+    com.apple.quicktime.player.movie.audio.treble: 0.000000
+    com.apple.quicktime.player.movie.audio.bass: 0.000000
+    com.apple.quicktime.player.movie.audio.balance: 0.000000
+    com.apple.quicktime.player.movie.audio.pitchshift: 0.000000
+    com.apple.quicktime.player.movie.audio.mute: 
+    com.apple.quicktime.player.movie.visual.brightness: 0.000000
+    com.apple.quicktime.player.movie.visual.color: 1.000000
+    com.apple.quicktime.player.movie.visual.tint: 0.000000
+    com.apple.quicktime.player.movie.visual.contrast: 1.000000
+    timecode        : 00:00:00:00
+  Duration: 00:50:53.51, start: 0.000000, bitrate: 186730 kb/s
+  Stream #0:0[0x1](eng): Video: prores (HQ) (apch / 0x68637061), yuv422p10le(bt709, progressive), 1920x1080, 159069 kb/s, SAR 1:1 DAR 16:9, 23.98 fps, 23.98 tbr, 24k tbn (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Video Media Handler
+      vendor_id       : appl
+      encoder         : Apple ProRes 422 (HQ)
+  Stream #0:1[0x2](eng): Data: none (tmcd / 0x64636D74), 0 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Time Code Media Handler
+      reel_name       : Unnamed
+      timecode        : 00:00:00:00
+  Stream #0:2[0x4](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FL), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:3[0x5](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FR), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:4[0x6](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, mono, s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:5[0x7](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (LFE), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:6[0x8](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (BL), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:7[0x9](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (BR), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:8[0xa](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (DL), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:9[0xb](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (DR), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:10[0xc](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FL), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:11[0xd](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FR), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:12[0xe](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, mono, s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:13[0xf](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (LFE), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:14[0x10](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (BL), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:15[0x11](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (BR), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:16[0x12](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (DL), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:17[0x13](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (DR), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:18[0x14](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FL), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:19[0x15](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FR), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:20[0x16](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FL), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:21[0x17](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FR), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:22[0x18](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FL), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:23[0x19](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FR), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:24[0x1a](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FL), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+  Stream #0:25[0x1b](eng): Audio: pcm_s24le (in24 / 0x34326E69), 48000 Hz, 1 channels (FR), s32 (24 bit), 1152 kb/s (default)
+    Metadata:
+      creation_time   : 2023-12-15T12:26:21.000000Z
+      handler_name    : Apple Sound Media Handler
+      vendor_id       : RuS 
+Unsupported codec with id 0 for input stream 1

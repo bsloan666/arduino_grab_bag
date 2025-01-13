@@ -66,12 +66,29 @@ class EncodedJointActuator
       Serial.print(",");
       Serial.print("Delta:");
       Serial.print(output_position_delta);
+      Serial.print("MAG:");
+      Serial.print(output_position_magnitude);
     }
     void set_to_off(){
       digitalWrite(actuator_a_pin, LOW);
       digitalWrite(actuator_b_pin, LOW);
     }
-
+    void move(int direction, int speed) {
+      if(direction > 0){
+          digitalWrite(actuator_a_pin, LOW);
+          digitalWrite(actuator_b_pin, HIGH);
+          analogWrite(modulator_pin, speed);
+      } else if(direction < 0){ 
+          digitalWrite(actuator_a_pin, HIGH);
+          digitalWrite(actuator_b_pin, LOW);
+          analogWrite(modulator_pin, speed);
+      } else {
+          digitalWrite(actuator_a_pin, LOW);
+          digitalWrite(actuator_b_pin, LOW);
+          digitalWrite(modulator_pin, LOW);
+      }
+    }
+    
     void cycle()
     {
       encoder_changed = false;
@@ -82,11 +99,11 @@ class EncodedJointActuator
       output_position_magnitude = abs(output_position_delta);
       output_position_magnitude = constrain(output_position_magnitude,0,abs(output_velocity_delta));
       // use output_position_magnitude as PWM control value
-      if(output_position_delta > 0){
+      if(output_position_delta > 0 || encoder_value < 24){
           digitalWrite(actuator_a_pin, LOW);
           digitalWrite(actuator_b_pin, HIGH);
           analogWrite(modulator_pin, output_position_magnitude);
-      } else if(output_position_delta < 0){ 
+      } else if(output_position_delta < 0 || encoder_value > 1000){ 
           digitalWrite(actuator_a_pin, HIGH);
           digitalWrite(actuator_b_pin, LOW);
           analogWrite(modulator_pin, output_position_magnitude);
@@ -116,7 +133,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
 
-  shoulder_pitch.init_targets(600, 240);
+  shoulder_pitch.init_targets(300, 240);
   shoulder_pitch.init_pids();
 }
 
