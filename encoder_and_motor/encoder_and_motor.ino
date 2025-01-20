@@ -7,19 +7,19 @@
 //   Best Performance: both pins have interrupt capability
 //   Good Performance: only the first pin has interrupt capability
 //   Low Performance:  neither pin has interrupt capability
-Encoder myEnc(2, 3);
+Encoder myEnc(20, 21);
 //   avoid using pins with LEDs attached
 
-int leftPin = 5;
-int rightPin = 6;
+int leftPin = 8;
+int rightPin = 9;
 int tempVar = 0;
 
 unsigned long previousMillis = 0;
-const long interval = 20;
+const long interval = 10;
 
-double Pk1 = 0.80; 
+double Pk1 = 0.65; 
 double Ik1 = 0.0;
-double Dk1 = Pk1 * 0.02;
+double Dk1 = Pk1 * 1;
 double Setpoint1, Input1, Output1, Output1a;    // PID variables position
 
 double Pk2 = 6;  
@@ -44,11 +44,11 @@ void setup() {
 
   PID1.SetMode(AUTOMATIC);              
   PID1.SetOutputLimits(-255, 255);
-  PID1.SetSampleTime(20);
+  PID1.SetSampleTime(10);
 
   PID2.SetMode(AUTOMATIC);              
   PID2.SetOutputLimits(-255, 255);
-  PID2.SetSampleTime(20);
+  PID2.SetSampleTime(10);
 
   pinMode(leftPin, OUTPUT);
   pinMode(rightPin, OUTPUT);
@@ -71,15 +71,15 @@ void loop() {
 
     if(encValue != lastEncValue) {
     // if(0){      
-      Serial.print("Encoder: [");
+      Serial.print("Encoder: ");
       Serial.print(encValue);
-      Serial.print("] Power: [");
+      Serial.print(" Power: ");
       Serial.print(Output1);
-      Serial.print("] Speed: [");
+      Serial.print(" Speed: ");
       Serial.print(Output2);
-      Serial.print("] Setpoint: [");
+      Serial.print(" Setpoint: ");
       Serial.print(Setpoint1);
-      Serial.println("]");
+      Serial.println("");
     }
     lastEncValue = encValue;  
      
@@ -99,10 +99,14 @@ void loop() {
       digitalWrite(rightPin, LOW);
     }
    if(Serial.available()){
-      delay(100);
-      Setpoint1 = Serial.parseInt();
+      int test = Serial.parseInt();
+
+      if(test) {
+        Setpoint1 = test;
+      }
+      Serial.print("Setting Point: ");  
       Serial.println(Setpoint1);         
-      Setpoint2 = 64;
+      Setpoint2 = 128;
     }
   }
 }
