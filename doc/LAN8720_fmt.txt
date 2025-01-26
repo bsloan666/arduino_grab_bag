@@ -1,0 +1,48 @@
+Pins:
+
+TX1   | NC TX-EN | TX) RX0   | RX1 nInt/ Retick| CRS MDIO  | MDC
+GND VCC
+
+On a LAN8720 ethernet board, the pins primarily represent the
+communication signals for transmitting and receiving data over an
+Ethernet connection, including power pins, control signals, and the
+physical data lines (RX and TX) which are differential pairs, meaning
+they require both a positive and negative signal for proper operation;
+consult the specific datasheet for your LAN8720 variant for exact
+pin functions and voltage levels.  Key pin functions on a LAN8720:
+
+Power Pins: 
+    VDD: Power supply voltage for the chip.  
+    GND: Ground connection.  
+Data Pins (Differential Pairs): 
+    RXP/RXN: Receive data lines (differential pair) 
+    TXP/TXN: Transmit data lines (differential pair) 
+Control Signals: 
+    nRST: Active-low reset signal 
+    MDC: Management data clock (used for configuration) 
+    MDIO: Management data input/output (used for configuration) 
+    COL: Collision detect signal 
+    CRS: Carrier sense signal 
+    ER: Error signal 
+    100BASE-TX: Indicates 100 Mbps operation
+
+Important points to remember: 
+
+Differential signaling: The data lines (RX and TX) are always differential pairs, meaning you need to
+connect both the positive and negative signals correctly for proper
+data transmission.  Datasheet reference: Always consult the specific
+datasheet for your LAN8720 variant to get the exact pinout and
+signal descriptions.  LAN8720A/LAN8720Ai Datasheet - Microchip
+Technology Jun 23, 2016 — The LAN8720A/LAN8720Ai is a low-power
+10BASE-T/100BASE-TX physical layer (PHY) transceiver with variable
+I/O voltage t...
+
+Microchip Technology Zelmoghazy/esp32-ethernet-lan8720 - GitHub A
+Data Interface : for sending and receiving Ethernet frame data. ...
+This can be done using the Enable pin of the oscillator, you...
+
+GitHub LAN8720A PHY-PoE Daughter Board User Guide Pin 1 GND Return
+of 5V output. Pin 2 V_OUT Positive DC/DC output voltage 5V. ...
+This section lists the pinout details, manufactur...
+
+Microchip Technology Show all

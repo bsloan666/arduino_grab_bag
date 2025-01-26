@@ -1,0 +1,39 @@
+To wire a LAN8720 Ethernet chip (like the one found on many Ethernet shields) 
+to an Arduino Nano, connect the following pins: power (5V and GND) to the 
+corresponding Arduino pins, and the data pins (CS, MOSI, MISO, SCK) to the 
+designated SPI pins on the Arduino Nano (typically pins 10, 11, 12, and 13); 
+remember to also connect the chip select pin (CS) from the LAN8720 to a digital 
+pin on the Arduino Nano that you can control in your code to manage 
+communication with the Ethernet chip. 
+
+Key points to remember:
+Power Supply: Connect the LAN8720's VCC pin to the Arduino's 5V pin and GND to GND. 
+SPI Communication:
+CS (Chip Select): Connect to a digital pin on the Arduino (usually pin 10). 
+MOSI (Master Out Slave In): Connect to Arduino pin 11. 
+MISO (Master In Slave Out): Connect to Arduino pin 12. 
+SCK (Serial Clock): Connect to Arduino pin 13. 
+Important Considerations:
+Ethernet Shield:
+If using an Ethernet shield with a built-in LAN8720, most of the connections will 
+be handled by the shield's design, and you only need to connect the shield's 
+designated pins to the Arduino according to the documentation. 
+Library:
+To use the LAN8720 with your Arduino code, you need to include the appropriate 
+Ethernet library in your project. 
+Arduino Nano With Ethernet Shield : 5 Steps - Instructables
+Connecting the wires is easy - simply match up the label on the Arduino Nano with 
+the same label on the ethernet shield. The ICSP ...
+
+Instructables
+Ethernet_Manager_STM32 - Arduino Documentation
+Apr 10, 2022 — Library for configuring/auto(re)connecting Ethernet LAN8720, W5x00, 
+ENC28J60 or built-in LAN8742A at runtime. Use much...
+
+Arduino Documentation
+Powering Alternatives for Arduino Boards
+Apr 16, 2024 — The most common and easiest way we can power an Arduino board is by 
+using its onboard USB connector. The USB connector...
+
+Arduino Docs
+Show all

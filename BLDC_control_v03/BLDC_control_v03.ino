@@ -35,6 +35,7 @@ HBridge bridge_k(6, 9);
 HBridge bridge_r(3, 5);
 HBridge bridge_b(10, 11);
 
+int interval = 10;
 unsigned long previousMillis = 0;
 unsigned long currentMillis;
 int req_speed;
@@ -62,6 +63,9 @@ void setup() {
 }
 
 void loop() {
+  currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
   int sensor_a = analogRead(A0);
   int sensor_b = analogRead(A1);
   int sensor_c = analogRead(A2);
@@ -122,7 +126,7 @@ void loop() {
 
   } else if (req_dir > 5){
     req_speed = map(abs_dir, 5, 1023, 0, 300);
-    vindex = 3;
+    vindex = 4;
     if(code == 1) {
       bridge_k.set(req_speed * k_vals[vindex + 5]);
       bridge_r.set(req_speed * r_vals[vindex + 5]);
@@ -148,6 +152,12 @@ void loop() {
       bridge_r.set(req_speed * r_vals[vindex + 0]);
       bridge_b.set(req_speed * b_vals[vindex + 0]);
     }
+  } else {
+      //stop position
+      bridge_k.set(req_speed * -1);
+      bridge_r.set(req_speed * 1);
+      bridge_b.set(req_speed * 1);
+
   } 
 
   if(0){
@@ -163,4 +173,5 @@ void loop() {
     Serial.println(req_dir);
   }
   index++;
+  }
 }
