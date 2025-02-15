@@ -2,14 +2,10 @@
 #include <PID_v1.h>
 
 
-class MechanumServo {
+class MechanumController {
   private:
-    int motor_a_pin;
-    int motor_b_pin;
-    int slave_a_pin;
-    int slave_b_pin;
-    int encoder_a_pin;
-    int encoder_b_pin;
+    int motor_pin_base;
+    int encoder_pin_base;
     double encoder_value;
     double previous_encoder_value;
     double target_position;
@@ -37,33 +33,17 @@ class MechanumServo {
       slave_b_pin = _slave_b_pin;
       encoder_a_pin = _encoder_a_pin;
       encoder_b_pin = _encoder_b_pin;
+      slave_position = 0;
     }
     int get_pos(){
       return encoder_value;
     }
     bool is_moving(){
-      return output_position_magnitude > 25;
+      return previous_encoder_value != encoder_value;
     }
     
     void init_pids(int _interval)
     {
-      if(0){
-        int result_a  = digitalPinToInterrupt(encoder_a_pin);
-        int result_b  = digitalPinToInterrupt(encoder_b_pin);
-
-        if(result_a != encoder_a_pin){
-            Serial.print(encoder_a_pin);
-            Serial.print(" cannot be used for interrupt! (");
-            Serial.print(result_a);
-            Serial.println(")");
-        }
-        if(result_b != encoder_b_pin){
-            Serial.print(encoder_b_pin);
-            Serial.print(" cannot be used for interrupt! (");
-            Serial.print(result_b);
-            Serial.println(")");
-        }
-      }
       position_pid.SetMode(AUTOMATIC);            
       position_pid.SetOutputLimits(-255, 255);
       position_pid.SetSampleTime(_interval);
@@ -90,14 +70,11 @@ class MechanumServo {
     }
     void dump()
     {
-      Serial.print("Encoder:");
+      Serial.print("'left_pos':");
       Serial.print(encoder_value);
       Serial.print(",");
-      Serial.print("Target:");
-      Serial.print(target_position);
-      Serial.print(",");
-      Serial.print("Delta:");
-      Serial.print(output_position_delta);
+      Serial.print("'right_pos':");
+      Serial.print(slave_position);
     }
     void set_to_off(){
       digitalWrite(motor_a_pin, LOW);
@@ -112,7 +89,7 @@ class MechanumServo {
       position_pid.Compute();
       velocity_pid.Compute();
       output_position_magnitude = abs(output_position_delta);
-      output_position_magnitude = constrain(output_position_magnitude,0,abs(output_velocity_delta));
+      output_position_magnitude = constrain(output_position_magnitude, 0, abs(output_velocity_delta));
       if(output_position_delta > 0){
           digitalWrite(motor_a_pin, LOW);
           analogWrite(motor_b_pin, output_position_magnitude);
@@ -121,9 +98,11 @@ class MechanumServo {
           digitalWrite(motor_b_pin, LOW);
       }
       if(slave_target_direction > 0){
+          slave_position += velocity;
           digitalWrite(slave_a_pin, LOW);
           analogWrite(slave_b_pin, output_position_magnitude);
       } else if(slave_target_direction < 0){ 
+          slave_position += velocity * -1;
           analogWrite(slave_a_pin, output_position_magnitude);
           digitalWrite(slave_b_pin, LOW);
       }
@@ -134,17 +113,12 @@ class MechanumServo {
     }
 };
 
+
 MechanumServo front(5, 4, 8, 9, 18, 2);
 MechanumServo rear(6, 7, 10, 11, 20, 21);
 
-
-double lf[5] = { 0, 2,  4,  2, 0}; 
-double lr[5] = { 0, -2,  0,  2, 0}; 
-double rf[5] = { 1, 1,  -1,  -1, 1}; 
-double rr[5] = { 1, -1, -1,  1,  1}; 
-int index = 0;
-int travel_distance = 300;
-int travel_time = 3;
+const int SET = 10;
+const int GET = 20;
 
 int interval = 20;
 int timing = 10;
@@ -161,13 +135,18 @@ void setup() {
   front.init_pids(interval); 
   rear.init_pids(interval); 
   
-  front.init_targets(0.0, 0.0, 16);
-  rear.init_targets(0.0, 0.0, 16);
+  front.init_targets(0.01, 0.01, 16);
+  rear.init_targets(0.01, 0.01, 16);
  
   delay(100);
 }
-
-
+int cmd;
+double lf_pos;
+double f_spd;
+double rf_dir;
+double lr_pos;
+double r_spd;
+double rr_dir;
 
 void loop() {
   unsigned long currentMillis = millis();
@@ -176,15 +155,31 @@ void loop() {
     
     front.cycle(); 
     rear.cycle();
-
-    if(! (front.is_moving()) && ! (rear.is_moving())){
-      front.init_targets(lf[index] * travel_distance, rf[index], 32);
-      rear.init_targets(lr[index] * travel_distance, rr[index], 32);
-      longMillis = currentMillis;
-      Serial.println(index);
-      index++;
-      if(index >= 5){
-        index = 0;
+    //Serial.println();
+    if (!(front.is_moving()) && !(rear.is_moving())) {
+      if(Serial.available()){
+        cmd = Serial.parseInt();
+        if(cmd == SET){
+          lf_pos = Serial.parseFloat();
+          f_spd = Serial.parseFloat();
+          rf_dir = Serial.parseFloat();
+          lr_pos = Serial.parseFloat();
+          r_spd = Serial.parseFloat();
+          rr_dir = Serial.parseFloat();
+          front.init_targets(lf_pos, rf_dir, f_spd);
+          rear.init_targets(lr_pos, rr_dir, r_spd);
+          Serial.print("'front': { ");
+          front.dump();
+          Serial.print("}, 'rear': { ");
+          rear.dump();
+          Serial.println("}");
+        } else if(cmd == GET){
+          Serial.print("'front': { ");
+          front.dump();
+          Serial.print("}, 'rear': { ");
+          rear.dump();
+          Serial.println("}");
+        }
       }
     }
   }

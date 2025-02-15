@@ -97,7 +97,7 @@ void loop() {
   }
   if(req_dir < -5){
     req_speed = map(abs_dir, 5, 128, 0, 300);
-    vindex = 3;
+    vindex = 4;
     if(code == 1) {
       bridge_k.set(req_speed * -k_vals[vindex + 5]);
       bridge_r.set(req_speed * -r_vals[vindex + 5]);
@@ -126,7 +126,7 @@ void loop() {
 
   } else if (req_dir > 5){
     req_speed = map(abs_dir, 5, 1023, 0, 300);
-    vindex = 4;
+    vindex = 3;
     if(code == 1) {
       bridge_k.set(req_speed * k_vals[vindex + 5]);
       bridge_r.set(req_speed * r_vals[vindex + 5]);

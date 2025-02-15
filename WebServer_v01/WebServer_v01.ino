@@ -19,7 +19,16 @@
 
 #include <SPI.h>
 #include <Ethernet.h>
-
+/*
+class BEWebServer(){
+  private:
+    unsigned int num_pairs;
+    unsigned int buf_index;
+    char buffer[256];
+    unsigned int var_offset;
+    unsigned int val_offset;
+};
+*/
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
 byte mac[] = {
@@ -158,7 +167,7 @@ void parse_key_value_pairs(char buffer[], char out_buffer[], char vars[], int va
       out_buffer[i] = '\0';
       strcpy(vars + nvalues * 16, out_buffer + var_offset);
       vals[nvalues] = atoi(out_buffer + val_offset);
-      dump(out_buffer + var_offset, out_buffer + val_offset);
+      //dump(out_buffer + var_offset, out_buffer + val_offset);
       var_offset = i + 1;
       nvalues++;
     } else if(buffer[i] == '='){ 
@@ -169,7 +178,7 @@ void parse_key_value_pairs(char buffer[], char out_buffer[], char vars[], int va
       strcpy(vars + nvalues * 16, out_buffer + var_offset);
       vals[nvalues] = atoi(out_buffer + val_offset);
       nvalues++;
-      dump(out_buffer + var_offset, out_buffer + val_offset);
+      //dump(out_buffer + var_offset, out_buffer + val_offset);
       break;
     }
   }
