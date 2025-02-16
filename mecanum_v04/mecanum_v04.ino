@@ -52,27 +52,26 @@ class MechanumController {
       
     }
 
-    void init_targets(double init_targ_pos, double init_targ_vel, int rf, int lr, int rr)
+    void init_targets(double init_targ_pos, double init_targ_vel, int lr, int rf, int rr)
     {
        target_position = init_targ_pos;
        target_velocity = init_targ_vel;
-       slave_polarity[0] = rf;
-       slave_polarity[1] = lr;
+       slave_polarity[0] = lr;
+       slave_polarity[1] = rf;
        slave_polarity[2] = rr;
-
     }
 
     void dump()
     {
       Serial.print("'position':");
       Serial.print(encoder_value);
-      Serial.print("'velocity':");
+      Serial.print(", 'velocity':");
       Serial.print(velocity);
-      Serial.print("'rf':");
+      Serial.print(", 'lr':");
       Serial.print(slave_polarity[0]);    
-      Serial.print("'lr':");
+      Serial.print(", 'rf':");
       Serial.print(slave_polarity[1]);    
-      Serial.print("'rr':");
+      Serial.print(", 'rr':");
       Serial.print(slave_polarity[2]);      
     }
 
@@ -100,7 +99,7 @@ class MechanumController {
           digitalWrite(motor_pin_base + 1, LOW);
       }
       for(unsigned int index = 0; index < 3; index++){
-        unsigned int base = 2 + index * 2;
+        unsigned int base = motor_pin_base + 2 + index * 2;
         if(slave_polarity[index] * output_position_delta > 0){
             digitalWrite(base, LOW);
             analogWrite(base + 1, output_position_magnitude);
@@ -117,7 +116,7 @@ class MechanumController {
 };
 
 
-MechanumController wheels(4, 2);
+MechanumController wheels(4, 20);
 
 const int SET = 10;
 const int GET = 20;
@@ -143,8 +142,8 @@ void setup() {
 int cmd;
 double pos;
 double spd;
-int rf_dir;
 int lr_dir;
+int rf_dir;
 int rr_dir;
 
 void loop() {
@@ -153,16 +152,20 @@ void loop() {
     previousMillis = currentMillis;
     
     wheels.cycle(); 
+    //wheels.dump();
+    //Serial.println("");
     if (!(wheels.is_moving())) {
+      
       if(Serial.available()){
+        wheels.set_to_off();
         cmd = Serial.parseInt();
         if(cmd == SET){
           pos = Serial.parseFloat();
           spd = Serial.parseFloat();
-          rf_dir = Serial.parseFloat();
           lr_dir = Serial.parseFloat();
+          rf_dir = Serial.parseFloat();          
           rr_dir = Serial.parseFloat();
-          wheels.init_targets(pos, spd, rf_dir, lr_dir, rr_dir);
+          wheels.init_targets(pos, spd, lr_dir, rf_dir, rr_dir);
           Serial.print("'wheels': { ");
           wheels.dump();
           Serial.println("}");
