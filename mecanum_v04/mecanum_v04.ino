@@ -34,7 +34,9 @@ class MechanumController {
     bool is_moving(){
       return previous_encoder_value != encoder_value;
     }
-    
+    bool has_arrived(){
+      return abs(encoder_value - target_position) < 50;
+    }
     void init_pids(int _interval)
     {
       position_pid.SetMode(AUTOMATIC);            
@@ -145,7 +147,7 @@ int lr_dir;
 int rf_dir;
 int rr_dir;
 int motion_started = 0;
-
+int cycle_count = 0;
 
 void loop() {
   unsigned long currentMillis = millis();
@@ -156,7 +158,13 @@ void loop() {
     //wheels.dump();
     //Serial.println("");
     if (!(wheels.is_moving())) {
-      if(Serial.available()){
+      if(motion_started && wheels.has_arrived()){
+        Serial.print("'wheels': { ");
+        wheels.dump();
+        Serial.println("}");
+        motion_started = 0;
+        cycle_count = 0;
+      } else if(Serial.available()){ 
         wheels.set_to_off();
         cmd = Serial.parseInt();
         if(cmd == SET){
@@ -173,11 +181,7 @@ void loop() {
           Serial.println("}");
         }
       }
-    } else if (motion_started){
-      Serial.print("'wheels': { ");
-      wheels.dump();
-      Serial.println("}");
-      motion_started = 0;
     }
+    cycle_count += 1;  
   }
 }
