@@ -134,7 +134,6 @@ void setup() {
   Serial.begin(9600);
   delay(100);
   wheels.init_pids(interval); 
-  
   wheels.init_targets(0.0, 0.0, 1, 1, 1);
   delay(100);
 }
@@ -145,6 +144,8 @@ double spd;
 int lr_dir;
 int rf_dir;
 int rr_dir;
+int motion_started = 0;
+
 
 void loop() {
   unsigned long currentMillis = millis();
@@ -155,7 +156,6 @@ void loop() {
     //wheels.dump();
     //Serial.println("");
     if (!(wheels.is_moving())) {
-      
       if(Serial.available()){
         wheels.set_to_off();
         cmd = Serial.parseInt();
@@ -166,15 +166,18 @@ void loop() {
           rf_dir = Serial.parseFloat();          
           rr_dir = Serial.parseFloat();
           wheels.init_targets(pos, spd, lr_dir, rf_dir, rr_dir);
-          Serial.print("'wheels': { ");
-          wheels.dump();
-          Serial.println("}");
-        } else if(cmd == GET){
+          motion_started = 1;
+        } else if(cmd == GET) {
           Serial.print("'wheels': { ");
           wheels.dump();
           Serial.println("}");
         }
       }
+    } else if (motion_started){
+      Serial.print("'wheels': { ");
+      wheels.dump();
+      Serial.println("}");
+      motion_started = 0;
     }
   }
 }
